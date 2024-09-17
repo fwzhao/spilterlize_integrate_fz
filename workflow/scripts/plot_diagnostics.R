@@ -130,11 +130,11 @@ var_explained_percent <- round(var_explained[1:pc_n] * 100, 1)
 colnames(pc_data) <- paste0("PC", 1:pc_n, "\n(", var_explained_percent, "%)")
 
 # Remove metadata without variation
-annot <- annot[, apply(annot, 2, function(x) length(unique(x)) > 1)]
+annot <- annot[, apply(annot, 2, function(x) { length(unique(na.omit(x))) > 1 })]
 
 # Convert numerical metadata with fewer than 25 unique values to factor AND ensure all categorical metadata are factors
 annot <- as.data.frame(lapply(annot, function(x) {
-  if ((is.numeric(x) && length(unique(x)) <= 25) || !is.numeric(x)) {
+  if ((is.numeric(x) && length(unique(x)) <= 25 && nrow(annot) > 25) || !is.numeric(x)) {
     return(factor(x))
   } else {
     return(x)

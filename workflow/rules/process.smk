@@ -11,7 +11,6 @@ rule split:
         support = expand(os.path.join(result_path,'{split}','support.csv'), split=splits),
         annotations = expand(os.path.join(result_path,'{split}','annotation.csv'), split=splits),
     params:
-        partition = config.get("partition"),
         split_by = ["all"] + config["split_by"],
         result_path = result_path,
     threads: config.get("threads", 1)
@@ -35,7 +34,6 @@ rule filter_features:
     output:
         filtered_counts = os.path.join(result_path,'{split}','filtered.csv'),
     params:
-        partition = config.get("partition"),
         filter_parameters = config["filter_parameters"]
     threads: config.get("threads", 1)
     resources:
@@ -62,8 +60,6 @@ rule select_hvf:
                               "name": "{transformed_data}",
                               "type": "HVF selection"
                           }),
-    params:
-        partition = config.get("partition"),
     threads: config.get("threads", 1)
     resources:
         mem_mb=config.get("mem", "16000"),
