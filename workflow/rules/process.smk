@@ -5,8 +5,10 @@ rule split:
     input:
         data = config["data"],
         annotation = config["annotation"],
+        support_path = config["support"],
     output:
         counts = expand(os.path.join(result_path,'{split}','counts.csv'), split=splits),
+        support = expand(os.path.join(result_path,'{split}','support.csv'), split=splits),
         annotations = expand(os.path.join(result_path,'{split}','annotation.csv'), split=splits),
     params:
         partition = config.get("partition"),
@@ -28,6 +30,7 @@ rule split:
 rule filter_features:
     input:
         data = os.path.join(result_path,'{split}','counts.csv'),
+        support_path = os.path.join(result_path,'{split}','support.csv'),
         annotation = os.path.join(result_path,'{split}','annotation.csv'),
     output:
         filtered_counts = os.path.join(result_path,'{split}','filtered.csv'),
