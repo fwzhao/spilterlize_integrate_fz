@@ -1,13 +1,14 @@
 
 ##### RESOURCES #####
-partition: 'shortq'
+# memory in MB
 mem: '8000'
 threads: 1
 
 
 ##### GENERAL #####
 data: /path/to/data.csv # path to the input count-matrix as CSV file, formatted as feature x sample (rows x columns); unique features and samples are required.
-annotation: /path/to/metadata.csv # path to the input sample annotation as CSV file, formatted as sample x metadata (rows x columns) 
+annotation: /path/to/metadata.csv # path to the input sample annotation as CSV file, formatted as sample x metadata (rows x columns)
+support: /path/to/support.csv # path to the input sample annotation as CSV file, formatted as sample x metadata (rows x columns) 
 result_path: /path/to/results/ # path to the output folder
 project_name: MySeqData # name of the project/dataset
 
